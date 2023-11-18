@@ -1,45 +1,59 @@
-function sendMesasge() {
-  let name = document.getElementById("nombre").value;
-  let course = document.getElementById("curso");
-  if (course.value == 1) {
-    const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
-    const alertTrigger = document.getElementById("liveAlertBtn");
-    const appendAlert = (message, type) => {
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = [
-          `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-          `   <div>${message}</div>`,
-          '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-          "</div>",
-        ].join("");
-        alertPlaceholder.append(wrapper);
-      };
-    appendAlert("No has seleciona un curso valido!", "danger");
-  }else{
-    let message = "Hola, mi nombre es " + name + " y estoy interesado en el curso " + course.options[course.value - 1].text + ".";
-    alert(message);
-  }
+fetch('./static/auto.json')
+    .then(response => response.json())
+    .then(data => {
+        const modelList = document.getElementById('card');
+        data.models.forEach(model => {
+            const img = document.createElement('img');
+            img.src = "/Primera Entrega/static/seat.png";
+            img.className = "card-img-top";
+            const cardBody = document.createElement('div');
+            cardBody.className = "card-body mt-5";            
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = "nameVehicle card-title";
+            cardTitle.innerHTML = model.name; 
+            const cardText = document.createElement('p');
+            cardText.className = "card-text";
+            cardText.innerHTML = model.description;
+            const cardtextPrice = document.createElement('p');
+            cardtextPrice.className = "card-text";
+            cardtextPrice.innerHTML = "Precio: "+model.price;
+            const cardButton = document.createElement('button');
+            cardButton.onclick = function(){shopingCard(model.id,1)};
+            cardButton.className = "btn btn-dark";
+            cardButton.innerHTML = "Comprar";
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardtextPrice);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(cardButton);
+            const card = document.createElement('div');
+            card.className = "card";
+            card.appendChild(img);
+            card.appendChild(cardBody);
+            modelList.appendChild(card);
+            const col = document.createElement('div');
+            col.style = "width: 30rem;";
+            col.className = "col";
+            col.appendChild(card);
+            modelList.appendChild(col);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+
+function shopingCard(id,count){
+    console.log("El id es: "+id+" y la cantidad es: "+count);
 }
 
 
-var contadorLlenado = 0; 
-function incrementarProgreso() {
-    var barra = document.querySelector('.progress-bar');
-    var valorActual = parseInt(barra.style.width);
-
-    if (valorActual < 100) {
-        valorActual += 10; 
-        barra.style.width = valorActual + '%';
-        barra.textContent = valorActual + '%';
-    } else {
-        contadorLlenado++; 
-        if (contadorLlenado >= 2) {
-            clearInterval(intervalo); 
-        } else {
-            barra.style.width = '0%'; 
-            barra.textContent = '0%';
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        const searchText = document.getElementById('searchInput').value;
+        console.log('Búsqueda:', searchText);
+        const busqueda = document.getElementsByClassName('nameVehicle');
+        for (let i = 0; i < busqueda.length; i++) {
+            if(busqueda[i].innerHTML.toLowerCase().indexOf(searchText.toLowerCase()) !== -1){
+                alert("Se ha encontrado un vehículo con el nombre: "+ busqueda[i].innerHTML);
+            }
         }
-    }
-}
-
-var intervalo = setInterval(incrementarProgreso, 2000); 
+    });
+});

@@ -1,0 +1,36 @@
+{
+    "id": 1,
+    "name": "VW",
+    "models": [
+        {
+            "id": 1,
+            "name": "Golf",
+            "price": 10000,
+            "description": "Producto recien llegado de Alemania"
+        },
+        {
+            "id": 2,
+            "name": "Polo",
+            "price": 20000,
+            "description": "Producto recien llegado de Mexico"
+        },
+        {
+            "id": 3,
+            "name": "Passat",
+            "price": 30000,
+            "description": "Producto recien llegado de Chinirrys"
+        },
+        {
+            "id": 4,
+            "name": "Tiguan",
+            "price": 40000,
+            "description": "Producto recien llegado de Rusia"
+        },
+        {
+            "id": 5,
+            "name": "Touareg",
+            "price": 50000,
+            "description": "Producto recien llegado de Congo"
+        }
+    ]
+}
