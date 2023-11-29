@@ -31,6 +31,30 @@
             "name": "Touareg",
             "price": 50000,
             "description": "Producto recien llegado de Congo"
-        }
+        },
+        {
+            "id": 6,
+            "name": "Arteon",
+            "price": 60000,
+            "description": "Producto recien llegado de Japon"
+        },
+        {
+            "id": 7,
+            "name": "T-Roc",
+            "price": 70000,
+            "description": "Producto recien llegado de Australia"
+        },
+        {
+            "id": 8,
+            "name": "Up",
+            "price": 80000,
+            "description": "Producto recien llegado de Nueva Zelanda"
+        },
+        {
+            "id": 9,
+            "name": "Touran",
+            "price": 90000,
+            "description": "Producto recien llegado de Canada"
+        }     
     ]
 }

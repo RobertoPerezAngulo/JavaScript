@@ -1,3 +1,62 @@
+
+
+function shopingCard(id,count){
+    console.log("El id es: "+id+" y la cantidad es: "+count);
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        const searchText = document.getElementById('searchInput').value;
+        const busqueda = document.getElementsByClassName('nameVehicle');
+        for (let i = 0; i < busqueda.length; i++) {
+            const element = busqueda[i];
+            if(element.innerHTML.toLowerCase().indexOf(searchText.toLowerCase()) == -1){
+                element.parentElement.parentElement.style.display = "none";
+            }
+            else{
+                element.parentElement.parentElement.style.display = "block";
+            }
+        }
+    });
+});
+
+
+function convertPrice(price){
+    return price.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' }.currency) + " MXN";
+}
+
+
+
+function login(){
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    if(email == "admin@hotmail.com" && password == "123"){
+        localStorage.setItem("admin", "true");
+        window.location.href = "/Primera Entrega/index.html";
+    }
+    else{
+        document.querySelector("#messajeError").innerHTML= "<p class='text-danger text-center'>Usuario o contraseña incorrectos</p>";
+    }
+}
+
+function checkSession() {
+    if (localStorage.getItem("admin") === "true") { 
+        document.querySelectorAll("#buttonSession").forEach(doc => {
+            doc.innerHTML = "Cerrar sesión";
+            doc.onclick = function(){closeSession()};
+        });
+    }
+}
+
+function closeSession() {
+    localStorage.removeItem("admin");
+    window.location.href = "/Primera Entrega/index.html";
+}
+
+window.onload = checkSession;
+
 fetch('./static/auto.json')
     .then(response => response.json())
     .then(data => {
@@ -16,11 +75,14 @@ fetch('./static/auto.json')
             cardText.innerHTML = model.description;
             const cardtextPrice = document.createElement('p');
             cardtextPrice.className = "card-text";
-            cardtextPrice.innerHTML = "Precio: "+model.price;
+            cardtextPrice.innerHTML = "<span class='align-bottom material-symbols-outlined'>attach_money</span>" + convertPrice(model.price);
             const cardButton = document.createElement('button');
             cardButton.onclick = function(){shopingCard(model.id,1)};
-            cardButton.className = "btn btn-dark";
+            cardButton.className = "btn btn-dark card-img-bottom";
             cardButton.innerHTML = "Comprar";
+            if(localStorage.getItem("admin") == "false" || localStorage.getItem("admin") == null){
+                cardButton.disabled = true
+            }
             cardBody.appendChild(cardTitle);
             cardBody.appendChild(cardtextPrice);
             cardBody.appendChild(cardText);
@@ -31,29 +93,10 @@ fetch('./static/auto.json')
             card.appendChild(cardBody);
             modelList.appendChild(card);
             const col = document.createElement('div');
-            col.style = "width: 30rem;";
+            col.style = "width: 28rem;";
             col.className = "col";
             col.appendChild(card);
             modelList.appendChild(col);
         });
     })
     .catch(error => console.error('Error:', error));
-
-function shopingCard(id,count){
-    console.log("El id es: "+id+" y la cantidad es: "+count);
-}
-
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-        e.preventDefault(); 
-        const searchText = document.getElementById('searchInput').value;
-        console.log('Búsqueda:', searchText);
-        const busqueda = document.getElementsByClassName('nameVehicle');
-        for (let i = 0; i < busqueda.length; i++) {
-            if(busqueda[i].innerHTML.toLowerCase().indexOf(searchText.toLowerCase()) !== -1){
-                alert("Se ha encontrado un vehículo con el nombre: "+ busqueda[i].innerHTML);
-            }
-        }
-    });
-});
