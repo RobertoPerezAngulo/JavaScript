@@ -125,12 +125,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelector("#countShopping").hidden = true;
         }else{
             const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
-            console.log(shopingCard);
-            shopingCard ? document.querySelector("#countShopping").innerHTML = shopingCard.length : document.querySelector("#countShopping").hidden = true;
-            
+            let total = 0;
             const canasta = document.querySelector("#canasta");
             for(let i = 0; i < shopingCard.length; i++)
             {
+                total += shopingCard[i].count;
                 const divcontainer = document.createElement('div');
                 divcontainer.className = "row";
 
@@ -162,6 +161,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 divcontainer.appendChild(buttondiv);
                 canasta.appendChild(divcontainer);
             }
+            total != 0 ? document.querySelector("#countShopping").innerHTML = total : document.querySelector("#countShopping").hidden = true;
         }
     })
     .catch(error => console.error('Error:', error));

@@ -23,6 +23,9 @@
                   data-bs-target="#exampleModal" style="color: #FFFFFF;">Inicio de Session</button></li>
               <li><a class="nav-link m-2" href="#" style="color: #FFFFFF;">¿Quienes somos?</a></li>
               <li><button type="button" class="nav-link m-2" style="color: #FFFFFF;">Contactame</button></li>
+              <li><button type="button" class="nav-link m-2" data-bs-toggle="modal" data-bs-target="#shoppingModal" style="color: #FFFFFF;">
+                Carrito de compra
+              </button></li>
             </ul>
           </div>
         </div>
@@ -125,16 +128,8 @@
               <h5 class="modal-title" id="shoppingModalLabel">Carrito de compras</h5>
             </div>
             <div id="canasta" class="row mt-5">
-              <div class="col">
-                <img src="/Primera Entrega/static/seat.png" class="img-fluid rounded-start" alt="...">
-              </div>
-              <div class="col">
-                <input type="number" class="form-control"  placeholder="Cantidad">
-              </div>
-              <div class="col">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" onclick="removeItem()">Remove</button>
-              </div>
             </div>
+            <button type="button" class="btn btn-dark m-auto d-flex flex-wrap justify-content-between " onclick="comprar()">Finalizar compra</button>
           </div>
         </div>
       </div>
