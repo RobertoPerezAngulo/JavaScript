@@ -1,4 +1,4 @@
-function shopingCard(id,count){
+function shopingCard(id,count,imagen,precio){
     if(localStorage.getItem("admin") == "true"){
         if(localStorage.getItem("shopingCard") == null){
             localStorage.setItem("shopingCard", JSON.stringify([]));
@@ -14,16 +14,14 @@ function shopingCard(id,count){
             }
         }
         if(!flag){
-            shopingCard.push({id: id, count: count});
+            shopingCard.push({id: id, count: count, price: precio, img: imagen});
         }
         localStorage.setItem("shopingCard", JSON.stringify(shopingCard));
-        // alert("Se ha añadido al carrito");
     }
     else{
         alert("No tienes permisos para añadir al carrito");
     }
     window.location.href = "/Primera Entrega/index.html";
-    console.log("El id es: "+id+" y la cantidad es: "+count);
 }
 
 
@@ -100,7 +98,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             cardtextPrice.className = "card-text";
             cardtextPrice.innerHTML = "<span class='align-bottom material-symbols-outlined'>attach_money</span>" + convertPrice(model.price);
             const cardButton = document.createElement('button');
-            cardButton.onclick = function(){shopingCard(model.id,1)};
+            cardButton.onclick = function(){shopingCard(model.id,1,model.image,model.price)};
             cardButton.className = "btn btn-dark card-img-bottom";
             cardButton.innerHTML = "Añade al carrito";
             if(localStorage.getItem("admin") == "false" || localStorage.getItem("admin") == null){
@@ -126,11 +124,59 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if(localStorage.getItem("admin") == "false" || localStorage.getItem("admin") == null){
             document.querySelector("#countShopping").hidden = true;
         }else{
-            console.log("hola");
             const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
             console.log(shopingCard);
             shopingCard ? document.querySelector("#countShopping").innerHTML = shopingCard.length : document.querySelector("#countShopping").hidden = true;
+            
+            const canasta = document.querySelector("#canasta");
+            for(let i = 0; i < shopingCard.length; i++)
+            {
+                const divcontainer = document.createElement('div');
+                divcontainer.className = "row";
+
+                const divcard = document.createElement('div');
+                divcard.className = "col";
+                const imgcanasta = document.createElement('img');
+                imgcanasta.src = shopingCard[i].img;
+                imgcanasta.className = "img-fluid rounded-start";        
+                const divcol = document.createElement('div');
+                divcol.className = "col";
+                const inputdiv = document.createElement('input');
+                inputdiv.type = "number";
+                inputdiv.className = "form-control";
+                inputdiv.placeholder = "Cantidad";
+                inputdiv.value = shopingCard[i].count;
+                const buttondiv = document.createElement('div');
+                buttondiv.className = "col";
+                const button = document.createElement('button');
+                button.className = "btn btn-dark";
+                button.onclick = function(){removeItem(shopingCard[i].id)};
+                button.innerHTML = "Eliminar";
+                buttondiv.appendChild(button);
+                divcol.appendChild(inputdiv);
+                divcard.appendChild(imgcanasta);
+
+
+                divcontainer.appendChild(divcard);
+                divcontainer.appendChild(divcol);
+                divcontainer.appendChild(buttondiv);
+                canasta.appendChild(divcontainer);
+            }
         }
     })
     .catch(error => console.error('Error:', error));
 });
+
+
+
+function removeItem(id){
+    const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
+    for (let i = 0; i < shopingCard.length; i++) {
+        const element = shopingCard[i];
+        if(element.id == id){
+            shopingCard.splice(i,1);
+        }
+    }
+    localStorage.setItem("shopingCard", JSON.stringify(shopingCard));
+    window.location.href = "/Primera Entrega/index.html";
+}

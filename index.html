@@ -124,15 +124,15 @@
             <div class="d-flex justify-content-center">
               <h5 class="modal-title" id="shoppingModalLabel">Carrito de compras</h5>
             </div>
-            <div class="row mt-5">
+            <div id="canasta" class="row mt-5">
               <div class="col">
                 <img src="/Primera Entrega/static/seat.png" class="img-fluid rounded-start" alt="...">
               </div>
               <div class="col">
-                <input type="number" class="form-control" id="cantidad" placeholder="Cantidad">
+                <input type="number" class="form-control"  placeholder="Cantidad">
               </div>
               <div class="col">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Remove</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" onclick="removeItem()">Remove</button>
               </div>
             </div>
           </div>
