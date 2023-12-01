@@ -4,57 +4,45 @@
     "models": [
         {
             "id": 1,
-            "name": "Golf",
+            "name": "Ibiza",
             "price": 10000,
-            "description": "Producto recien llegado de Alemania"
+            "description": "Producto recien llegado de Alemania",
+            "image" : "/Primera Entrega/static/ibiza.png"
         },
         {
             "id": 2,
-            "name": "Polo",
+            "name": "Ateca",
             "price": 20000,
-            "description": "Producto recien llegado de Mexico"
+            "description": "Producto recien llegado de Mexico",
+            "image" : "/Primera Entrega/static/ateca.png"
         },
         {
             "id": 3,
-            "name": "Passat",
+            "name": "Leon",
             "price": 30000,
-            "description": "Producto recien llegado de Chinirrys"
+            "description": "Producto recien llegado de Chinirrys",
+            "image" : "/Primera Entrega/static/leonFr.png"
         },
         {
             "id": 4,
-            "name": "Tiguan",
+            "name": "Arona",
             "price": 40000,
-            "description": "Producto recien llegado de Rusia"
+            "description": "Producto recien llegado de Rusia",
+            "image" : "/Primera Entrega/static/arona.png"
         },
         {
             "id": 5,
-            "name": "Touareg",
+            "name": "Tarraco",
             "price": 50000,
-            "description": "Producto recien llegado de Congo"
+            "description": "Producto recien llegado de Congo",
+            "image" : "/Primera Entrega/static/tarraco.png"
         },
         {
             "id": 6,
-            "name": "Arteon",
-            "price": 60000,
-            "description": "Producto recien llegado de Japon"
-        },
-        {
-            "id": 7,
-            "name": "T-Roc",
-            "price": 70000,
-            "description": "Producto recien llegado de Australia"
-        },
-        {
-            "id": 8,
-            "name": "Up",
-            "price": 80000,
-            "description": "Producto recien llegado de Nueva Zelanda"
-        },
-        {
-            "id": 9,
-            "name": "Touran",
-            "price": 90000,
-            "description": "Producto recien llegado de Canada"
-        }     
+            "name": "Ateca style",
+            "price": 20000,
+            "description": "Producto recien llegado de Mexico",
+            "image" : "/Primera Entrega/static/atecaStyle.png"
+        }
     ]
 }
