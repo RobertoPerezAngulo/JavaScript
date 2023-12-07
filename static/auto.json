@@ -7,42 +7,42 @@
             "name": "Ibiza",
             "price": 10000,
             "description": "Producto recien llegado de Alemania",
-            "image" : "/Primera Entrega/static/ibiza.png"
+            "image" : "/static/ibiza.png"
         },
         {
             "id": 2,
             "name": "Ateca",
             "price": 20000,
             "description": "Producto recien llegado de Mexico",
-            "image" : "/Primera Entrega/static/ateca.png"
+            "image" : "/static/ateca.png"
         },
         {
             "id": 3,
             "name": "Leon",
             "price": 30000,
             "description": "Producto recien llegado de Chinirrys",
-            "image" : "/Primera Entrega/static/leonFr.png"
+            "image" : "/static/leonFr.png"
         },
         {
             "id": 4,
             "name": "Arona",
             "price": 40000,
             "description": "Producto recien llegado de Rusia",
-            "image" : "/Primera Entrega/static/arona.png"
+            "image" : "/static/arona.png"
         },
         {
             "id": 5,
             "name": "Tarraco",
             "price": 50000,
             "description": "Producto recien llegado de Congo",
-            "image" : "/Primera Entrega/static/tarraco.png"
+            "image" : "/static/tarraco.png"
         },
         {
             "id": 6,
             "name": "Ateca style",
             "price": 20000,
             "description": "Producto recien llegado de Mexico",
-            "image" : "/Primera Entrega/static/atecaStyle.png"
+            "image" : "/static/atecaStyle.png"
         }
     ]
 }

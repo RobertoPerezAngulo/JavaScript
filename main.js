@@ -1,5 +1,8 @@
 function shopingCard(id,count,imagen,precio){
     if(localStorage.getItem("admin") == "true"){
+        if(document.querySelector("#shoppingbotton").disabled){
+            document.querySelector("#shoppingbotton").disabled = false;
+        }
         if(localStorage.getItem("shopingCard") == null){
             localStorage.setItem("shopingCard", JSON.stringify([]));
         }
@@ -21,8 +24,32 @@ function shopingCard(id,count,imagen,precio){
     else{
         alert("No tienes permisos para añadir al carrito");
     }
-    window.location.href = "/Primera Entrega/index.html";
+    window.location.href = "/index.html";
 }
+
+function sendEmail(){
+    let mensaje = document.getElementById('mensajeInteres').value;
+    let nombre = document.getElementById('nombreInteres').value;
+    let email = document.getElementById('correoInteres').value;
+    window.open('mailto:rperez_puma@hotmail.com?subject=¡Hola realice una prueba de tu proyecto!&body=' + 'Mi nombre es ' + nombre + ', me puedes contactar a: ' + email + ' mensaje: ' +mensaje )
+    var myModalEl = document.getElementById('showContactame');
+    var modal = bootstrap.Modal.getInstance(myModalEl);
+    modal.hide();
+    Toastify({
+        text: "En breve nos pondremos en contacto contigo, gracias por tu interes.",
+        duration: -1,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #212529, #dc3545)",
+        }
+      }).showToast();
+
+}
+
+
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -52,7 +79,7 @@ function login(){
     if(email == "admin@hotmail.com" && password == "123"){
         localStorage.setItem("admin", "true");
         document.querySelector("#bienvenida").innerHTML= "<p class='text-success text-center'>¡Bienvenido Admintrador!</p>";
-        window.location.href = "/Primera Entrega/index.html";
+        window.location.href = "/index.html";
     }
     else{
         document.querySelector("#messajeError").innerHTML= "<p class='text-danger text-center'>Usuario o contraseña incorrectos</p>";
@@ -66,12 +93,13 @@ function checkSession() {
             doc.onclick = function(){closeSession()};
         });
         document.querySelector("#bienvenida").innerHTML= "<h1 class='mt-5 d-flex justify-content-center'>¡Bienvenido Admintrador!</h1>";
+        document.querySelector("#shoppingbotton").disabled
     }
 }
 
 function closeSession() {
     localStorage.removeItem("admin");
-    window.location.href = "/Primera Entrega/index.html";
+    window.location.href = "/index.html";
 }
 
 window.onload = checkSession;
@@ -123,8 +151,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
         if(localStorage.getItem("admin") == "false" || localStorage.getItem("admin") == null){
             document.querySelector("#countShopping").hidden = true;
+            document.querySelector("#shoppingbotton").disabled = true;
         }else{
             const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
+            if( shopingCard == null || shopingCard.length == 0){
+                document.querySelector("#shoppingbotton").disabled = true;
+            }else{
+                document.querySelector("#shoppingbotton").disabled = false;
+            }
             let total = 0;
             const canasta = document.querySelector("#canasta");
             for(let i = 0; i < shopingCard.length; i++)
@@ -163,6 +197,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
             total != 0 ? document.querySelector("#countShopping").innerHTML = total : document.querySelector("#countShopping").hidden = true;
         }
+
     })
     .catch(error => console.error('Error:', error));
 });
@@ -178,5 +213,11 @@ function removeItem(id){
         }
     }
     localStorage.setItem("shopingCard", JSON.stringify(shopingCard));
-    window.location.href = "/Primera Entrega/index.html";
+    window.location.href = "/index.html";
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("whatsApp").addEventListener("click", () => {
+        window.open('https://api.whatsapp.com/send?phone=5513095096&text=Hola');
+    });
+});
