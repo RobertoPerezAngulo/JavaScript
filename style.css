@@ -1,10 +1,10 @@
 .fab {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 16px;
+    right: 16px;
     border-radius: 50px;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background: #25D366;
     box-shadow: 2px 2px 3px #999;
     z-index: 3;
@@ -12,10 +12,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    animation: pulse 1s infinite;
   }
-  .fab:hover {
-    cursor: pointer;
+.fab:hover {
+  cursor: pointer; 
+}
+.fab img {
+  width: 30px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  .fab img {
-    width: 30px;
+  50% {
+    transform: scale(1.1);
   }
+  100% {
+    transform: scale(1);
+  }
+}
+  

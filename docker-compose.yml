@@ -10,3 +10,4 @@ services:
       - ./main.js:/usr/share/nginx/html/main.js
       - ./node_modules:/usr/share/nginx/html/node_modules
       - ./style.css:/usr/share/nginx/html/style.css
+      - ./pages:/usr/share/nginx/html/pages
