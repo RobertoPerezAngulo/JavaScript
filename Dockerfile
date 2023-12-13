@@ -10,6 +10,7 @@ COPY main.js /usr/share/nginx/html/
 COPY node_modules /usr/share/nginx/html/node_modules
 COPY style.css /usr/share/nginx/html/
 COPY ./pages/contacto /usr/share/nginx/html/pages/contacto
+COPY ./pages/finalizacompra /usr/share/nginx/html/pages/finalizacompra
 
 # Si tienes más archivos o directorios en la raíz que necesitas copiar, repite el proceso:
 # COPY path_to_your_file_or_directory /usr/share/nginx/html/path_to_your_file_or_directory
