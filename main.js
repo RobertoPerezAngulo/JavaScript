@@ -14,16 +14,19 @@ function shopingCard(id,count,imagen,precio){
             if(element.id == id){
                 element.count += count;
                 flag = true;
+                localStorage.setItem("Total",  localStorage.getItem("Total") == null ? 0  + parent(element.price) : parseInt(localStorage.getItem("Total")) + parseInt(element.price));
             }
         }
         if(!flag){
             shopingCard.push({id: id, count: count, price: precio, img: imagen});
+            localStorage.setItem("Total", localStorage.getItem("Total") == null ? 0 + parseInt(precio)  : parseInt(localStorage.getItem("Total")) + parseInt(precio));
         }
         localStorage.setItem("shopingCard", JSON.stringify(shopingCard));
     }
     else{
         alert("No tienes permisos para añadir al carrito");
     }
+    
     window.location.href = "/index.html";
 }
 
@@ -47,6 +50,20 @@ function sendEmail(){
         }
       }).showToast();
 
+}
+
+function pagar(){
+    Toastify({
+        text: "En breve nos pondremos en contacto contigo, gracias por tu interes.",
+        duration: -1,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true, 
+        style: {
+          background: "linear-gradient(to right, #212529, #dc3545)",
+        }
+      }).showToast();
 }
 
 
@@ -78,7 +95,7 @@ function login(){
     const password = document.getElementById('password').value;
     if(email == "admin@hotmail.com" && password == "123"){
         localStorage.setItem("admin", "true");
-        document.querySelector("#bienvenida").innerHTML= "<p class='text-success text-center'>¡Bienvenido Admintrador!</p>";
+        document.querySelector("#bienvenida").innerHTML= "<p class='text-success text-center'>¡Bienvenido Proyecto Final Curso JavaScript!</p>";
         window.location.href = "/index.html";
     }
     else{
@@ -92,7 +109,7 @@ function checkSession() {
             doc.innerHTML = "Cerrar sesión";
             doc.onclick = function(){closeSession()};
         });
-        document.querySelector("#bienvenida").innerHTML= "<h1 class='mt-5 d-flex justify-content-center'>¡Bienvenido Admintrador!</h1>";
+        document.querySelector("#bienvenida").innerHTML= "<h1 class='mt-1 d-flex justify-content-center'>¡Bienvenido Proyecto Final Curso JavaScript!</h1>";
         document.querySelector("#shoppingbotton").disabled
     }
 }
@@ -153,6 +170,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.querySelector("#countShopping").hidden = true;
             document.querySelector("#shoppingbotton").disabled = true;
         }else{
+            if(localStorage.getItem("shopingCard") == null){
+                localStorage.setItem("shopingCard", JSON.stringify([]));
+            }
             const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
             if( shopingCard == null || shopingCard.length == 0){
                 document.querySelector("#shoppingbotton").disabled = true;
@@ -168,41 +188,48 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 divcontainer.className = "row";
 
                 const divcard = document.createElement('div');
-                divcard.className = "col";
+                divcard.className = "col-4";
                 const imgcanasta = document.createElement('img');
                 imgcanasta.src = shopingCard[i].img;
                 imgcanasta.className = "img-fluid rounded-start";        
                 const divcol = document.createElement('div');
-                divcol.className = "col";
-                const inputdiv = document.createElement('input');
-                inputdiv.type = "number";
-                inputdiv.className = "form-control";
-                inputdiv.placeholder = "Cantidad";
-                inputdiv.value = shopingCard[i].count;
+                divcol.className = "col-1 my-2";
+                const inputdiv = document.createElement('div');
+                inputdiv.innerHTML = shopingCard[i].count;
+                
+                const priceDiv = document.createElement('div');
+                priceDiv.className = "col-4 my-2 figure-caption";
+                const buttonPrice = document.createElement('div');
+                buttonPrice.innerHTML = convertPrice(shopingCard[i].count * shopingCard[i].price);
+                priceDiv.appendChild(buttonPrice);
+
                 const buttondiv = document.createElement('div');
-                buttondiv.className = "col";
+                buttondiv.className = "col-1 mx-1";
                 const button = document.createElement('button');
-                button.className = "btn btn-dark";
+                button.className = "btn";
                 button.onclick = function(){removeItem(shopingCard[i].id)};
-                button.innerHTML = "Eliminar";
+                button.innerHTML = "<span class='material-symbols-outlined'>close</span>";
                 buttondiv.appendChild(button);
                 divcol.appendChild(inputdiv);
                 divcard.appendChild(imgcanasta);
 
-
                 divcontainer.appendChild(divcard);
                 divcontainer.appendChild(divcol);
+                divcontainer.appendChild(priceDiv);
                 divcontainer.appendChild(buttondiv);
                 canasta.appendChild(divcontainer);
             }
             total != 0 ? document.querySelector("#countShopping").innerHTML = total : document.querySelector("#countShopping").hidden = true;
+            document.querySelector('#precioFinal').innerHTML = convertPrice(localStorage.getItem("Total"));
         }
 
     })
     .catch(error => console.error('Error:', error));
 });
 
-
+function comprar(){
+    window.location.href = "pages/finalizacompra.html";
+}
 
 function removeItem(id){
     const shopingCard = JSON.parse(localStorage.getItem("shopingCard"));
@@ -210,8 +237,10 @@ function removeItem(id){
         const element = shopingCard[i];
         if(element.id == id){
             shopingCard.splice(i,1);
+            localStorage.setItem("Total", localStorage.getItem("Total")  - element.count *  element.price);
         }
     }
+    
     localStorage.setItem("shopingCard", JSON.stringify(shopingCard));
     window.location.href = "/index.html";
 }
